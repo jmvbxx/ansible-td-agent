@@ -1,0 +1,16 @@
+# HTTP input
+<source>
+  type http
+  port 8888
+</source>
+
+# Treasure Data output
+<match td.*.*>
+  type tdlog
+  endpoint api.treasuredata.com
+  apikey YOUR_API_KEY
+  auto_create_table
+  buffer_type file
+  buffer_path /var/log/td-agent/buffer/td
+  use_ssl true
+</match>
