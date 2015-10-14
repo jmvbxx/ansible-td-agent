@@ -1,3 +1,4 @@
+#{{ ansible_managed }}
 # HTTP input
 <source>
   type http
@@ -8,7 +9,7 @@
 <match td.*.*>
   type tdlog
   endpoint api.treasuredata.com
-  apikey YOUR_API_KEY
+  apikey {{td_api_key}}
   auto_create_table
   buffer_type file
   buffer_path /var/log/td-agent/buffer/td
