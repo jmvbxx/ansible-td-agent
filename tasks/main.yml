@@ -1,7 +1,7 @@
 ---
 
 - name: td-agent | install using curl
-  action: shell curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
+  shell: curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
 
 - name: td-agent | overlay default config
   template: src='td-agent.conf.j2' dest='/etc/td-agent/td-agent.conf'
