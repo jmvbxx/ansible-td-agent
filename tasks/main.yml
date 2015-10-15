@@ -1,7 +1,18 @@
 ---
 
-- name: td-agent | install using curl
-  shell: curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
+- name: td-agent | get GPG key
+  shell: curl https://packages.treasuredata.com/GPG-KEY-td-agent | apt-key add -
+
+- name: td-agent | add treasure data repository to apt
+  apt_repository: repo='deb http://packages.treasuredata.com/2/ubuntu/trusty/  trusty contrib' state='present'
+  register: td-agent_repo
+
+- name: td-agent | update sources
+  apt: update_cache='yes'
+  when: td-agent_repo | changed
+
+- name: td-agent | install package
+  apt: name='td-agent' state='present' update_cache='yes' cache_valid_time='3600'
 
 - name: td-agent | overlay default config
   template: src='td-agent.conf.j2' dest='/etc/td-agent/td-agent.conf'
